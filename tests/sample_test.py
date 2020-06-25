@@ -2,17 +2,17 @@ import unittest
 from main import ServiceSnippet
 
 
-class TestServiceFunnelScrape(unittest.TestCase):
+class TestServiceSnippetScrape(unittest.TestCase):
     def setUp(self):
-        self.service_funnel = ServiceSnippet()
+        self.service_snippet = ServiceSnippet()
         html_string = """
             <article class="article " id="id-39334" data-tags="A,B,C"><h2>S1</h2></article>
             <article class="article " id="id-39335" data-tags="B,C,D,E"><h2>S2</h2></article>
         """
-        self.service_funnel.scrape_html(html_string)
+        self.service_snippet.scrape_html(html_string)
 
     def test_valid_tags_with_snippet(self):
-        result = self.service_funnel.handle_request(
+        result = self.service_snippet.handle_request(
             {"selected_tags": [{"name": "A"}, {"name": "B"}, {"name": "C"}]}
         )
         self.assertEqual(result["status"]["code"], 0)
@@ -28,7 +28,7 @@ class TestServiceFunnelScrape(unittest.TestCase):
         )
 
     def test_valid_tags_without_snippet(self):
-        result = self.service_funnel.handle_request(
+        result = self.service_snippet.handle_request(
             {"selected_tags": [{"name": "B"}]}
         )
         self.assertEqual(result["status"]["code"], 1)
@@ -41,7 +41,7 @@ class TestServiceFunnelScrape(unittest.TestCase):
         self.assertEqual(result["snippet"], None)
 
     def test_invalid_tags(self):
-        result = self.service_funnel.handle_request(
+        result = self.service_snippet.handle_request(
             {"selected_tags": [{"name": "A"}, {"name": "E"}]}
         )
         self.assertEqual(result["status"]["code"], 2)
