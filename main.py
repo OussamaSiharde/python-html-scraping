@@ -11,12 +11,6 @@ class ServiceSnippet:
         self.html = None
 
     def scrape_html(self, html: str):
-        """
-        Scrape HTML, extract tags and snippet and store them in an appropriate data structure.
-
-        Args:
-            html (str) : Entire HTML content. Not the path to HTML document.
-        """
         # using Snippet class to manage html str
         snippet = Snippet(html)
 
@@ -30,14 +24,7 @@ class ServiceSnippet:
         self.html = html
 
     def handle_request(self, request: dict) -> dict:
-        """
-        Find out the correct snippet that maps to a set of input tags.
 
-        Args:
-            request (dict): Request object as specified in the readme.
-        Returns:
-            response (dict): Response object as specified in the readme.
-        """
         intersected = None
         request_key = set()
 
@@ -52,8 +39,6 @@ class ServiceSnippet:
                 intersected = request_key
 
             else:
-                """ if there is intersection between request_key and 
-                 snippets_set will store the common values """
 
                 intersected = request_key.intersection(snippets_set)
 
